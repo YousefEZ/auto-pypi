@@ -8,7 +8,11 @@ inputs:
   twinetoken:
     description: 'The twine API token to use for publishing'
     required: true
-    default: ''
+    default: ""
+  repository:
+     description: "resposiory url for twine"
+     required: true
+     default: "https://upload.pypi.org/"
 runs:
   using: composite
   steps:
@@ -48,4 +52,4 @@ runs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ inputs.twinetoken }}
-        repository-url: https://test.pypi.org/legacy/
+        repository-url: ${{ inputs.repository }}
