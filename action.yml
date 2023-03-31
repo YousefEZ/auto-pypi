@@ -1,4 +1,4 @@
-name: 'AutoDeploy Twine'
+name: 'AutoBump-Pypi'
 description: 'Bump Version, Create Tag, Build and Publish to Twine'
 inputs:
   repo-token:
