@@ -54,6 +54,7 @@ runs:
       uses: ad-m/github-push-action@v0.6.0
       with:
         branch: main
+        force: true
         github_token: ${{ inputs.githubtoken }}
     - name: Build Distribution
       run: python -m build
