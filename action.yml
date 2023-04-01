@@ -51,10 +51,10 @@ runs:
         bumpver update --${{ steps.get_version.outputs.version }} --commit
       shell: bash
     - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          branch: main
-          github_token: ${{ inputs.githubtoken }}
+      uses: ad-m/github-push-action@v0.6.0
+      with:
+        branch: main
+        github_token: ${{ inputs.githubtoken }}
     - name: Build Distribution
       run: python -m build
       shell: bash
