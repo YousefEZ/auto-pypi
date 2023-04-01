@@ -46,8 +46,10 @@ runs:
           core.setOutput("version", version);
     - name: Bump version
       run: |
-        git config user.name AlBumperBot
-        git config user.email 41898282+AlBumperBot[bot]@users.noreply.github.com
+        git config user.name Auto-PyPi
+        git config user.email auto-pypi-bot[bot]@users.noreply.github.com
+        git checkout -b bumpversion-autopypi
+        git merge --squash main
         bumpver update --${{ steps.get_version.outputs.version }} --commit
       shell: bash
     - name: Create pull request
@@ -56,7 +58,7 @@ runs:
       with:
         title: "Version bump"
         commit-message: "Bump Version"
-        branch: main
+        branch: bumpversion-autopypi
         base: main
         body: "This pull request bumps the version of the Python package."
     - name: Merge pull request
