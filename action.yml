@@ -49,12 +49,12 @@ runs:
         git config user.name AlBumperBot
         git config user.email 41898282+AlBumperBot[bot]@users.noreply.github.com
         bumpver update --${{ steps.get_version.outputs.version }} --commit
+      shell: bash
     - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
           branch: main
           github_token: ${{ inputs.githubtoken }}
-      shell: bash
     - name: Build Distribution
       run: python -m build
       shell: bash
