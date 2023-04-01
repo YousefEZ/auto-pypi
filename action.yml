@@ -61,7 +61,7 @@ runs:
         body: "This pull request bumps the version of the Python package."
     - name: Merge pull request
       if: ${{ github.event.pull_request.merged == true }}
-      uses: peter-evans/merge-pull-request@v1
+      uses: peter-evans/pull-request-merge-action@v2.2.1
       with:
         pull_request_number: ${{ github.event.pull_request.number }}
         merge_method: squash
