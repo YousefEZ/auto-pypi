@@ -41,7 +41,7 @@ runs:
             repo: context.repo.repo,
             pull_number: context.payload.pull_request.number
           });
-          const regex = new RegExp("(?=" + ${{ inputs.regex }} + ").*", "g");
+          const regex = new RegExp("(?=${{ inputs.regex }}).*", "g");
           const version = pullRequest.data.body.match(regex)[0];
           core.setOutput("version", version);
     - name: Bump version
