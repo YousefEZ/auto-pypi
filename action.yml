@@ -61,12 +61,26 @@ runs:
         body: "This pull request bumps the version of the Python package."
     - name: Merge pull request
       if: ${{ github.event.pull_request.merged == true }}
-      uses: peter-evans/pull-request-merge-action@v2.2.1
+      uses: actions/github-script@v4
       with:
-        pull_request_number: ${{ github.event.pull_request.number }}
-        merge_method: squash
-      env:
-        GITHUB_TOKEN: ${{ inputs.githubtoken }}
+        github-token: ${{ inputs.githubtoken }}
+        script: |
+          const { Octokit } = require("@octokit/rest");
+          const octokit = new Octokit({
+            auth: process.env.GITHUB_TOKEN
+          });
+          const { data: pullRequest } = await octokit.pulls.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.pull_request.number
+          });
+          const mergeResult = await octokit.pulls.merge({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.pull_request.number,
+            merge_method: 'squash'
+          });
+          console.log(mergeResult);
     - name: Build Distribution
       run: python -m build
       shell: bash
