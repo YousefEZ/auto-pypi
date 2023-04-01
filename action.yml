@@ -50,12 +50,23 @@ runs:
         git config user.email 41898282+AlBumperBot[bot]@users.noreply.github.com
         bumpver update --${{ steps.get_version.outputs.version }} --commit
       shell: bash
-    - name: Push changes
-      uses: ad-m/github-push-action@v0.6.0
+    - name: Create pull request
+      if: ${{ github.event.pull_request.merged == true }}
+      uses: peter-evans/create-pull-request@v3
       with:
+        title: "Version bump"
+        commit-message: "Bump Version"
         branch: main
-        force: true
-        github_token: ${{ inputs.githubtoken }}
+        base: main
+        body: "This pull request bumps the version of the Python package."
+    - name: Merge pull request
+      if: ${{ github.event.pull_request.merged == true }}
+      uses: peter-evans/merge-pull-request@v1
+      with:
+        pull_request_number: ${{ github.event.pull_request.number }}
+        merge_method: squash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build Distribution
       run: python -m build
       shell: bash
