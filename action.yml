@@ -48,7 +48,14 @@ runs:
       run: |
         git config user.name Auto-PyPi
         git config user.email auto-pypi-bot[bot]@users.noreply.github.com
-        git checkout -b bumpversion-autopypi
+        if git rev-parse --verify bumpversion-autopypi > /dev/null 2>&1; then
+          echo "Branch exists"
+          git checkout -b bumpversion-autopypi
+        else
+          echo "Branch does not exist"
+          git checkout -b bumpversion-autopypi
+          git push --set-upstream origin bumpversion-autopypi
+        fi
         git merge --squash main
         bumpver update --${{ steps.get_version.outputs.version }} --commit
       shell: bash
