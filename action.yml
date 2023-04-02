@@ -64,7 +64,7 @@ runs:
         fi
         git push --set-upstream origin bumpversion-autopypi
         git merge --squash main
-        bumpver update --${{ steps.get_version.outputs.version }} --commit --tag
+        bumpver update --${{ steps.get_version.outputs.version }} --commit
       shell: bash
     - name: Create pull request
       if: ${{ github.event.pull_request.merged == true }}
