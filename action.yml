@@ -78,7 +78,7 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.githubtoken }}
     - name: Merge Pull Requests
-      run: gh pr merge --merge --auto "bumpversion-autopypi"
+      run: gh pr merge --merge "bumpversion-autopypi"
       env:
         GH_TOKEN: ${{ inputs.githubtoken }}
       shell: bash
