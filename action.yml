@@ -29,6 +29,7 @@ runs:
         python -m pip install --upgrade pip
         pip install bumpver twine build
         pip install build --upgrade
+        npm install @octokit/rest
       shell: bash
     - name: Get version from pull request description
       id: get_version
