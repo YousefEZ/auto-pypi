@@ -12,7 +12,7 @@ inputs:
   repository:
      description: "resposiory url for twine"
      required: true
-     default: "https://upload.pypi.org/"
+     default: "https://upload.pypi.org/legacy/"
   regex:
     description: "the leading string before the bump tags"
     required: true
