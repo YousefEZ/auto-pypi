@@ -57,6 +57,7 @@ runs:
         if git rev-parse --verify bumpversion-autopypi > /dev/null 2>&1; then
           echo "Branch exists"
           git checkout -b bumpversion-autopypi
+          git pull origin bumpversion-autopypi
         else
           echo "Branch does not exist"
           git checkout -b bumpversion-autopypi
