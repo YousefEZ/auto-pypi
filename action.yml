@@ -44,6 +44,11 @@ runs:
           const regex = new RegExp("(?<=${{ inputs.regex }}).*", "g");
           const version = pullRequest.data.body.match(regex)[0];
           core.setOutput("version", version);
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        ref: main
+        fetch-depth: 0
     - name: Bump version
       run: |
         echo "GITHUB_ACTOR=${{ github.actor }}" >> $GITHUB_ENV
