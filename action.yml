@@ -46,8 +46,9 @@ runs:
           core.setOutput("version", version);
     - name: Bump version
       run: |
-        git config user.name Auto-PyPi
-        git config user.email auto-pypi-bot[bot]@users.noreply.github.com
+        echo "GITHUB_ACTOR=${{ github.actor }}" >> $GITHUB_ENV
+        git config user.name ${{ github.actor }}
+        git config user.email "${{ github.actor }}@users.noreply.github.com"
         if git rev-parse --verify bumpversion-autopypi > /dev/null 2>&1; then
           echo "Branch exists"
           git checkout -b bumpversion-autopypi
