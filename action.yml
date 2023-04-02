@@ -54,15 +54,14 @@ runs:
         echo "GITHUB_ACTOR=${{ github.actor }}" >> $GITHUB_ENV
         git config user.name AutoPyPi
         git config user.email "auto-pypi[bot]@users.noreply.github.com"
-        if git rev-parse --verify bumpversion-autopypi > /dev/null 2>&1; then
+        git checkout -b bumpversion-autopypi
+        if git ls-remote --exit-code --heads origin bumpversion-autopypi | grep -q bumpversion-autopypi; then
           echo "Branch exists"
-          git checkout -b bumpversion-autopypi
           git pull origin bumpversion-autopypi
         else
           echo "Branch does not exist"
-          git checkout -b bumpversion-autopypi
-          git push --set-upstream origin bumpversion-autopypi
         fi
+        git push --set-upstream origin bumpversion-autopypi
         git merge --squash main
         bumpver update --${{ steps.get_version.outputs.version }} --commit
       shell: bash
