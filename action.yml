@@ -64,14 +64,14 @@ runs:
         fi
         git push --set-upstream origin bumpversion-autopypi
         git merge --squash main
-        bumpver update --${{ steps.get_version.outputs.version }} --commit
+        bumpver update --${{ steps.get_version.outputs.version }} --commit-message ":arrow_up: bump ${{ steps.get_version.outputs.version }} OLD → NEW" --commit
       shell: bash
     - name: Create pull request
       if: ${{ github.event.pull_request.merged == true }}
       uses: peter-evans/create-pull-request@v4.2.4
       with:
-        title: "Version bump"
-        commit-message: "Bump Version"
+        title: ":arrow_up: Version bump"
+        commit-message: ":arrow_up: Bump Version ${{ steps.get_version.outputs.version }}"
         branch: bumpversion-autopypi
         base: main
         body: "This pull request bumps the version of the Python package."
